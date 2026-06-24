@@ -17,12 +17,14 @@ jobs:
         with:
           submodules: recursive
 
+      - uses: rlespinasse/github-slug-action@v5
+
       - name: Build Artifacts
         uses: ./.github/actions/build-artifacts
         with:
           sln-path: ${{ env.SOLUTION_FILE_PATH }}
           build-config: ${{ env.BUILD_CONFIGURATION }}
-          version-tag: ${{ github.ref_name }}
+          version-tag: ${{ env.GITHUB_REF_SLUG }}
 
   release:
     needs: build
@@ -43,7 +45,7 @@ jobs:
           generate_release_notes: true
           make_latest: true
           preserve_order: true
-          tag_name: ${{ github.ref_name }}
-          name: "Release ${{ github.ref_name }}"
+          tag_name: ${{ env.GITHUB_REF_SLUG }}
+          name: "Release ${{ env.GITHUB_REF_SLUG }}"
           files: |
             output/**/*.@(dll|pdb)
