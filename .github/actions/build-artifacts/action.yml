@@ -13,7 +13,7 @@ runs:
   using: "composite"
   steps:
   - name: Add MSBuild to PATH
-    uses: microsoft/setup-msbuild@v1.1
+    uses: microsoft/setup-msbuild@v3
     with:
       vs-version: '[16.0, )'
 
@@ -21,14 +21,12 @@ runs:
 
   - name: Build
     working-directory: ${{env.GITHUB_WORKSPACE}}
-    # Add additional options to the MSBuild command line here (like platform or verbosity level).
-    # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
     run: msbuild /m /p:Configuration=${{inputs.build-config}} /p:GitCommit=${{github.sha}} /p:GitBranch=${{github.ref}} ${{inputs.sln-path}}
     shell: cmd
 
   - name: Upload Artifacts
     if: ${{success()}}
-    uses: actions/upload-artifact@v4
+    uses: actions/upload-artifact@v7
     with:
       name: artifacts
       path: |
