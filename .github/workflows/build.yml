@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+
+env:
+  SOLUTION_FILE_PATH: .
+  BUILD_CONFIGURATION: Debug
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Build Artifacts
+        uses: ./.github/actions/build-artifacts
+        with:
+          sln-path: ${{env.SOLUTION_FILE_PATH}}
+          build-config: ${{env.BUILD_CONFIGURATION}}
