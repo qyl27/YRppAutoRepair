@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  SOLUTION_FILE_PATH: .
+  BUILD_CONFIGURATION: Debug
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - uses: rlespinasse/github-slug-action@v5
+
+      - name: Build Artifacts
+        uses: ./.github/actions/build-artifacts
+        with:
+          sln-path: ${{ env.SOLUTION_FILE_PATH }}
+          build-config: ${{ env.BUILD_CONFIGURATION }}
+          version-tag: ${{ env.GITHUB_REF_SLUG }}-${{ env.GITHUB_SHA_SHORT }}
