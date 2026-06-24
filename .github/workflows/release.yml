@@ -20,8 +20,9 @@ jobs:
       - name: Build Artifacts
         uses: ./.github/actions/build-artifacts
         with:
-          sln-path: ${{env.SOLUTION_FILE_PATH}}
-          build-config: ${{env.BUILD_CONFIGURATION}}
+          sln-path: ${{ env.SOLUTION_FILE_PATH }}
+          build-config: ${{ env.BUILD_CONFIGURATION }}
+          version-tag: ${{ github.ref_name }}
 
   release:
     needs: build

@@ -8,6 +8,10 @@ inputs:
   build-config:
     description: 'Configuration to build'
     required: true
+  version-tag:
+    description: 'Version tag appended to output file names'
+    required: false
+    default: ${{ github.sha }}
 
 runs:
   using: "composite"
@@ -20,15 +24,15 @@ runs:
   - uses: ammaraskar/msvc-problem-matcher@master
 
   - name: Build
-    working-directory: ${{env.GITHUB_WORKSPACE}}
-    run: msbuild /m /p:Configuration=${{inputs.build-config}} /p:GitCommit=${{github.sha}} /p:GitBranch=${{github.ref}} ${{inputs.sln-path}}
+    working-directory: ${{ env.GITHUB_WORKSPACE }}
+    run: msbuild /m /p:Configuration=${{ inputs.build-config }} /p:TargetName=YRAutoRepair-${{ inputs.version-tag }} ${{ inputs.sln-path }}
     shell: cmd
 
   - name: Upload Artifacts
-    if: ${{success()}}
+    if: ${{ success() }}
     uses: actions/upload-artifact@v7
     with:
       name: artifacts
       path: |
-        ${{inputs.sln-path}}/${{inputs.build-config}}/YRAutoRepair.dll
-        ${{inputs.sln-path}}/${{inputs.build-config}}/YRAutoRepair.pdb
+        ${{ inputs.sln-path }}/${{ inputs.build-config }}/YRAutoRepair-${{ inputs.version-tag }}.dll
+        ${{ inputs.sln-path }}/${{ inputs.build-config }}/YRAutoRepair-${{ inputs.version-tag }}.pdb
