@@ -21,7 +21,7 @@ runs:
     with:
       vs-version: '[16.0, )'
 
-  - uses: ammaraskar/msvc-problem-matcher@master
+  - uses: ammaraskar/msvc-problem-matcher@541aa4360062d76d9620af6b8bd35cfa0c5ef19f
 
   - name: Build
     working-directory: ${{ env.GITHUB_WORKSPACE }}
