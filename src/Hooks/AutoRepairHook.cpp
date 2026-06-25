@@ -6,7 +6,7 @@
 
 #include <Syringe.h>
 
-static constexpr int scan_frame_interval = 20;
+static constexpr int scan_frame_interval = 30;
 
 static int last_scan_frame = 0;
 
