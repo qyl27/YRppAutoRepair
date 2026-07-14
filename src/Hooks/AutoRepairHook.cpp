@@ -29,6 +29,10 @@ DEFINE_HOOK(0x55B4E1, LogicClass_Update_AutoRepair, 0x5)
 			{
 				continue;
 			}
+			if (!p_building->CanBeRepaired())
+			{
+				continue;
+			}
 			if (p_building->IsBeingRepaired)
 			{
 				continue;
