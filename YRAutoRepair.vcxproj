@@ -3,11 +3,6 @@
   <PropertyGroup>
     <ShowAllFiles>true</ShowAllFiles>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
-  </ItemDefinitionGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>YRAutoRepair</ProjectName>
     <RootNamespace>YRAutoRepair</RootNamespace>
